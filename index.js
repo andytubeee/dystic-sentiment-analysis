@@ -16,8 +16,6 @@ admin.initializeApp({
   databaseURL: "https://dystic-test-default-rtdb.firebaseio.com"
 });
 
-// As an admin, the app has access to read and write all data, regardless of Security Rules
-
 
 const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
   version: '2020-08-01',
@@ -26,24 +24,6 @@ const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
   }),
   serviceUrl: CRED.url,
 });
-
-// ref.once("value", function (snapshot) {
-//   const analyzeParams = {
-//     "text": snapshot.val().objective.body,
-//     'features': {
-//       'emotion': {},
-//       'concepts': {},
-//     },
-//   };
-//   naturalLanguageUnderstanding.analyze(analyzeParams)
-//     .then(analysisResults => {
-//       console.log(JSON.stringify(analysisResults, null, 2));
-//     })
-//     .catch(err => {
-//       console.log('error:', err);
-//     });
-
-// });
 
 app.use("/analyze/:id", (req, res) => {
   var db = admin.database();
