@@ -42,7 +42,6 @@ app.use("/analyze/:id", (req, res) => {
       naturalLanguageUnderstanding.analyze(analyzeParams)
         .then(analysisResults => {
           res.status(200).json(analysisResults["result"])
-
         })
         .catch(err => {
           console.log('error:', err);
