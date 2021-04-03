@@ -8,7 +8,6 @@ var app = express()
 
 // Fetch the service account key JSON file contents
 var serviceAccount = require("./dystic-test-firebase-adminsdk-bz1tw-6f17bd8624.json");
-const e = require("express");
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
@@ -30,6 +29,7 @@ app.use("/analyze/:id", (req, res) => {
   const ResumeID = req.params.id
   var ref = db.ref("resumes/" + ResumeID);
   ref.once("value", function (snapshot) {
+    // If resume exists
     if (snapshot.val() != null) {
       resumeSummary = snapshot.val().objective.body
       const analyzeParams = {
@@ -41,7 +41,6 @@ app.use("/analyze/:id", (req, res) => {
       };
       naturalLanguageUnderstanding.analyze(analyzeParams)
         .then(analysisResults => {
-          // console.log(JSON.stringify(analysisResults, null, 2));
           res.status(200).json(analysisResults["result"])
 
         })
